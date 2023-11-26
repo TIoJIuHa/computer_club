@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>
+        {% block title %} 
+        {%if client %}
+            Пользователь {{client[1]}} {{client[2]}}
+        {% else %}
+            Новый пользователь
+        {% endif %}
+        {% endblock %}
+    </h1>
+    {% for error in errors %}
+            <div class="alert">{{ error }}</div>
+    {% endfor %}
+
+    <form method="post">
+        <label for="name">Name</label>
+        <br>
+        <input type="text" name="name"
+               value="{{ client[1] }}"></input>
+        <br>
+        <label for="name">Surname</label>
+        <br>
+        <input type="text" name="surname"
+               value="{{ client[2] }}"></input>
+        <br>
+        <label for="email">Email</label>
+        <br>
+        <input type="text" name="email"
+               value="{{ client[3] }}"></input>
+        <br>
+        <label for="sex-select">Choose your sex:</label>
+        <select name="sex" id="sex-select">
+            {% if male %}
+                <option value="male" selected>М</option>
+                <option value="female">Ж</option>
+            {% else %}
+                <option value="male">М</option>
+                <option value="female" selected>Ж</option>
+            {% endif %}
+        </select>
+        <br>
+        <br>
+        <p>
+        {% if client %}
+            <button type="submit">Save</button>
+            <button formaction="{{ client[0] }}/delete" type="submit">Delete</button>
+        {% else %}
+            <button type="submit">Create</button>
+        {% endif %}
+        </p>
+    </form>
+
+{% endblock %}

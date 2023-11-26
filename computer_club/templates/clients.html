@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Пользователи {% endblock %}</h1>
+    <p><a href="{{ url_for('create_client') }}">Добавить нового пользователя</a></p>
+    {% for client in clients %}
+    <h3> {{ client[1] }} {{ client[2] }}</h3>
+    <p>
+        email: {{ client[3] }} <br>
+        sex: {{ client[4] }}
+    </p>
+    <p><a href="{{ url_for('get_client', client_id=client[0]) }}">редактировать</a></p>
+    {% endfor %}
+{% endblock %}

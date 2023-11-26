@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} ComputureCLUB Admin panel {% endblock %}</h1>
+
+    <p><a href="{{ url_for('clients') }}">Пользователи</a></p>
+    <p><a href="{{ url_for('categories') }}">Категории пользователей</a></p>
+    <p><a href="{{ url_for('orders') }}">Заказы</a></p>
+    <p><a href="{{ url_for('snacks') }}">Снэки</a></p>
+{% endblock %}
