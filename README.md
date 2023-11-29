@@ -21,10 +21,15 @@ cd computer_club
 export FLASK_APP=app
 export FLASK_ENV=development (для режима разработки)
 ```
-Заполнить базу данных:
+Инициализировать базу данных
 ```
 python init_db.py
 ```
+Заполнить базу данных 
+```
+python fill_database.py
+```
+Поменять параметры можно в одноименном файле
 Теперь можно запускать проект:
 ```
 flask run
