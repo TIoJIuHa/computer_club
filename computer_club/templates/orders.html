@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2> Заказы </h2>
+
+<p> <a href="{{ url_for('create_order') }}"> Добавить новый заказ </a> </p>
+
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+        <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Сlient id</th>
+                <th>Session start</th>
+                <th>Session end</th>
+                <th>Computer</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td> {{ order[0] }}</td>
+                    <td> {{ order[1] }} <a href="{{ url_for('single_order', order_id=order[0])}}"> <em>(редактировать) </em> </a></td>
+                    <td>{{ order[2] }}</td>
+                    <td>{{ order[3] }}</td>
+                    <td>{{ order[4] }}</td>
+                    <td>{{ order[5] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

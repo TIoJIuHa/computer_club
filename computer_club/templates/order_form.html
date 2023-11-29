@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+     <h1>
+        {% block title %}
+         {% if order %}
+         Заказ номер {{ order[0] }}
+         {% else %}
+         Добавление Заказа
+         {% endif%}
+        {% endblock %}
+    </h1>
+
+    {% for error in errors %}
+        <div class="alert">{{ error }}</div>
+    {% endfor %}
+
+    <form method="post">
+        <label for="client_id">Client id:</label>
+        <input type="text" id="client_id" name="client_id" value="{{ order[1] }}" min="{{ max_id }} required"><br><br>
+
+        <label for="session_start_day">Session start day:</label>
+        <input type="number" id="session_start_day" name="session_start_day" value="{{ order[2] }}" min="1" max="31" ><br><br>
+
+        <label for="session_start_hour">Session start hour:</label>
+        <input type="number" id="session_start_hour" name="session_start_hour" value="{{ order[2] }}" min="0" max="23" ><br><br>
+
+        <label for="session_end_day">Session end day:</label>
+        <input type="number" id="session_end_day" name="session_end_day" value="{{ order[3] }}" min="1" max="31" ><br><br>
+
+        <label for="session_end_hour">Session end hour:</label>
+        <input type="number" id="session_end_hour" name="session_end_hour" value="{{ order[3] }}" min="0" max="23"><br><br>
+
+
+        <label for="computer">Computer:</label>
+        <input type="number" id="computer" name="computer" value="{{ order[4] }}" min="0" required><br><br>
+
+         <p>
+        {% if order %}
+             <button style="background-color: #4CAF50;
+                        border: none;
+                        color: white;
+                        padding: 5px 5px;
+                        text-align: center;
+                        text-decoration: none;
+                        display: inline-block;
+                        font-size: 16px;
+                        margin: 4px 2px;
+                        cursor: pointer;" type="submit" >Save</button>
+            <button style="background-color: #ff0000;
+                        border: none;
+                        color: white;
+                        padding: 5px 5px;
+                        text-align: center;
+                        text-decoration: none;
+                        display: inline-block;
+                        font-size: 16px;
+                        margin: 4px 2px;
+                        cursor: pointer;" formaction="{{ order[0] }}/delete" type="submit">Delete</button>
+        {% else %}
+            <button type="submit">Add Category</button>
+        {% endif %}
+        </p>
+    </form>
+{% endblock %}

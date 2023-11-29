@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2> Вкусняшки </h2>
+
+<p> <a href="{{ url_for('create_snack') }}"> Добавить вкусняшку  </a> </p>
+
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+        <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Calories</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for snack in snacks %}
+                <tr>
+                    <td> {{ snack[0] }}</td>
+                    <td> {{ snack[1] }} <a href="{{ url_for('single_snack', snack_id=snack[0]) }}"> <em>(редактировать) </em> </a></td>
+                    <td>{{ snack[2] }}</td>
+                    <td> {{snack[3] }} </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

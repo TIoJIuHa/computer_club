@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2> Категории </h2>
+
+<p> <a href=" {{ url_for('create_category') }}"> Добавить новую категорию  </a> </p>
+
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+        <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Discount</th>
+                <th>Money_Required</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+                <tr>
+                    <td> {{ category[0] }}</td>
+                    <td> {{ category[1] }} <a href="{{ url_for('single_category', category_id=category[0])}}"> <em>(редактировать) </em> </a></td>
+                    <td>{{ category[2] }}</td>
+                    <td>{{ category[3] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

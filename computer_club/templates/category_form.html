@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+     <h1>
+        {% block title %}
+         {% if category %}
+         Категория {{ category[1] }}
+         {% else %}
+         Добавление категории
+         {% endif%}
+        {% endblock %}
+    </h1>
+
+    {% for error in errors %}
+        <div class="alert">{{ error }}</div>
+    {% endfor %}
+
+    <form method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="{{ category[1] }}" required><br><br>
+
+        <label for="discount">Discount:</label>
+        <input type="number" id="discount" name="discount" value="{{ category[2] }}" min="0" max="100" required><br><br>
+
+        <label for="money_required">Money required:</label>
+        <input type="number" id="money_required" name="money_required" value="{{ category[3] }}" min="0" required><br><br>
+
+         <p>
+        {% if category %}
+             <button style="background-color: #4CAF50;
+                        border: none;
+                        color: white;
+                        padding: 5px 5px;
+                        text-align: center;
+                        text-decoration: none;
+                        display: inline-block;
+                        font-size: 16px;
+                        margin: 4px 2px;
+                        cursor: pointer;" type="submit" >Save</button>
+            <button style="background-color: #ff0000;
+                        border: none;
+                        color: white;
+                        padding: 5px 5px;
+                        text-align: center;
+                        text-decoration: none;
+                        display: inline-block;
+                        font-size: 16px;
+                        margin: 4px 2px;
+                        cursor: pointer;" formaction="{{ category[0] }}/delete" type="submit">Delete</button>
+        {% else %}
+            <button type="submit">Add Category</button>
+        {% endif %}
+        </p>
+    </form>
+{% endblock %}

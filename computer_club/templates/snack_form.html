@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+     <h1>
+        {% block title %}
+         {% if snack %}
+         Вкусняшка {{ snack[1] }}
+         {% else %}
+         Добавление вкусняшки
+         {% endif%}
+        {% endblock %}
+    </h1>
+
+    {% for error in errors %}
+        <div class="alert">{{ error }}</div>
+    {% endfor %}
+
+    <form method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="{{ snack[1] }}" required><br><br>
+
+        <label for="calories">Calories:</label>
+        <input type="number" id="calories" name="calories" value="{{ snack[2] }}" min="0" required><br><br>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" value="{{ snack[3] }}" min="0" required><br><br>
+
+         <p>
+        {% if snack %}
+             <button style="background-color: #4CAF50;
+                        border: none;
+                        color: white;
+                        padding: 5px 5px;
+                        text-align: center;
+                        text-decoration: none;
+                        display: inline-block;
+                        font-size: 16px;
+                        margin: 4px 2px;
+                        cursor: pointer;" type="submit" >Save</button>
+            <button style="background-color: #ff0000;
+                        border: none;
+                        color: white;
+                        padding: 5px 5px;
+                        text-align: center;
+                        text-decoration: none;
+                        display: inline-block;
+                        font-size: 16px;
+                        margin: 4px 2px;
+                        cursor: pointer;" formaction="{{ snack[0] }}/delete" type="submit">Delete</button>
+        {% else %}
+            <button type="submit">Add yammy</button>
+        {% endif %}
+        </p>
+    </form>
+{% endblock %}
