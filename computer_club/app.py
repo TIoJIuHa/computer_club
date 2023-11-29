@@ -132,7 +132,7 @@ def get_client(client_id):
             return render_template('client_form.html', client=client, male=male, errors=errors)
 
         conn.commit()
-        return redirect("/clients")
+        return redirect("/client")
 
     cur.close()
     conn.close()
