@@ -24,7 +24,6 @@
         <table>
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Name</th>
                 <th>Surname</th>
                 <th>Email</th>
@@ -36,9 +35,8 @@
         <tbody>
             {% for client in clients %}
                 <tr>
-                    <td> {{ client[0] }}</td>
                     <td> {{ client[1] }} <a href="{{ url_for('get_client', client_id=client[0]) }}"> <em>(редактировать) </em> </a></td>
-                    <td>{{ client[2] }}</td>
+                    <td> {{ client[2] }} </td>
                     <td> {{ client[3] }} </td>
                     <td> {{ client[4] }} </td>
                     <td> {{ client[5] }} </td>

@@ -38,7 +38,7 @@ def index():
 def clients():
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute('SELECT * FROM client ORDER BY id DESC;')
+    cur.execute('SELECT client.id, client.name, client.surname, client.email, category.name as category, client.sex FROM client JOIN category ON category.id = client.category_id GROUP BY category.id, client.id ORDER BY client.id DESC;')
     clients = cur.fetchall()
     cur.close()
     conn.close()
@@ -53,7 +53,7 @@ def create_client():
         name = request.form['name']
         surname = request.form['surname']
         email = request.form['email']
-        category_id = request.form['category_id']
+        # category_id = request.form['category_id']
         sex = ''
 
         if request.form['sex'] == 'male':
@@ -64,7 +64,7 @@ def create_client():
         errors = validate_user(name, surname, email)
 
         try:
-            cur.execute(f"INSERT INTO client (name, surname, email, category_id, sex) VALUES ('{name}', '{surname}', '{email}', {int(category_id)}, '{sex}');")
+            cur.execute(f"INSERT INTO client (name, surname, email, category_id, sex) VALUES ('{name}', '{surname}', '{email}', {5}, '{sex}');")
         except Exception as e:
             errors.append(str(e))
 
@@ -79,6 +79,12 @@ def create_client():
 
 
 def validate_email(email_string):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute(f"SELECT * FROM client WHERE email LIKE '{email_string}';")
+    existing_email = cur.fetchone()
+    if existing_email:
+        return "User with such email already exists"
     regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
     if not re.fullmatch(regex, email_string):
         return "Invalid email"
@@ -113,7 +119,7 @@ def get_client(client_id):
         name = request.form['name']
         surname = request.form['surname']
         email = request.form['email']
-        category_id = request.form['category_id']
+        # category_id = request.form['category_id']
         sex = ''
 
         errors = validate_user(name, surname, email)
@@ -124,7 +130,7 @@ def get_client(client_id):
             sex = 'f'
 
         try:
-            cur.execute(f"UPDATE client SET name = '{name}', surname = '{surname}', email = '{email}', category_id = {int(category_id)}, sex = '{sex}' WHERE id={client_id};")
+            cur.execute(f"UPDATE client SET name = '{name}', surname = '{surname}', email = '{email}', sex = '{sex}' WHERE id={client_id};")
         except Exception as e:
             errors.append(str(e))
 
